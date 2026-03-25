@@ -2,11 +2,12 @@ const petalsContainer = document.getElementById("petals");
 const messageScroll = document.getElementById("messageScroll");
 const endingImage = document.getElementById("endingImage");
 const audio = document.querySelector("audio");
+audio.volume = 0.15; // ← ここ追加
 
 const MUSIC_DURATION_SECONDS = 66;
 const IMAGE_FADE_IN_SECONDS = 3.5;
 const IMAGE_FADE_OUT_SECONDS = 1.8;
-const IMAGE_VISIBLE_LEAD_SECONDS = 6;
+const IMAGE_VISIBLE_LEAD_SECONDS = 15;
 
 const petals = Array.from({ length: 32 }, (_, i) => ({
   id: i,
@@ -48,8 +49,15 @@ function resetFadeOutTimer() {
 
 function setScrollPosition(currentTime) {
   const progress = clamp(currentTime / MUSIC_DURATION_SECONDS, 0, 1);
-  const translateY = 100 - 200 * progress;
-  const opacity = progress > 0 ? 1 : 0;
+
+  const START_TRANSLATE_Y = 55;
+  const END_TRANSLATE_Y = -145;
+
+  const translateY =
+    START_TRANSLATE_Y + (END_TRANSLATE_Y - START_TRANSLATE_Y) * progress;
+
+  const opacity = 1;
+
   messageScroll.style.transform = `translateY(${translateY}%)`;
   messageScroll.style.opacity = opacity;
 }
