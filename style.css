@@ -1,0 +1,242 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  background: #000;
+  color: #fff;
+}
+
+body {
+  overflow: hidden;
+}
+
+.page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #000;
+  color: #fff;
+}
+
+.background {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.overlay-light {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(255, 220, 230, 0.18), transparent 40%);
+}
+
+.petals {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.petal {
+  position: absolute;
+  top: 0;
+  border-radius: 70% 0 70% 0;
+  background: linear-gradient(135deg, rgba(255, 245, 248, 0.98), rgba(255, 182, 193, 0.9));
+  box-shadow: 0 0 12px rgba(255, 192, 203, 0.35);
+  pointer-events: none;
+  animation-name: petalFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+  will-change: transform, opacity;
+}
+
+.content {
+  position: relative;
+  z-index: 20;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  box-sizing: border-box;
+}
+
+.card {
+  width: 100%;
+  max-width: 768px;
+  padding: 16px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  background: linear-gradient(180deg, rgba(10, 10, 10, 0.38), rgba(10, 10, 10, 0.58));
+  box-sizing: border-box;
+}
+
+.eyebrow {
+  margin: 0 0 16px;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(255, 241, 242, 0.8);
+}
+
+.message-window {
+  position: relative;
+  height: 48vh;
+  overflow: hidden;
+}
+
+.message-scroll {
+  position: absolute;
+  inset-inline: 0;
+  white-space: pre-line;
+  font-size: 14px;
+  line-height: 1.9;
+  color: rgba(255, 255, 255, 0.95);
+  transform: translateY(100%);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.ending-image {
+  pointer-events: none;
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  padding-inline: 16px;
+  opacity: 0;
+  transform: translateY(16px) scale(0.96);
+  will-change: opacity, transform;
+}
+
+.ending-image.is-fading-out {
+  animation: fadeOutImage 1.8s ease-in forwards;
+}
+
+.ending-image img {
+  width: auto;
+  max-width: 100%;
+  max-height: 32vh;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+}
+
+.audio-wrap {
+  margin-top: 20px;
+}
+
+.audio-wrap audio {
+  width: 100%;
+}
+
+@keyframes petalFall {
+  0% {
+    transform: translate3d(0, -12vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--petal-opacity);
+  }
+  100% {
+    transform: translate3d(var(--drift), 115vh, 0) rotate(360deg);
+    opacity: 0.2;
+  }
+}
+
+@keyframes fadeOutImage {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+}
+
+@media (min-width: 640px) {
+  .content {
+    padding: 32px 24px;
+  }
+
+  .card {
+    padding: 24px;
+  }
+
+  .eyebrow {
+    font-size: 14px;
+  }
+
+  .message-window {
+    height: 52vh;
+  }
+
+  .message-scroll {
+    font-size: 16px;
+    line-height: 2;
+  }
+
+  .audio-wrap {
+    margin-top: 24px;
+  }
+}
+
+@media (min-width: 768px) {
+  .content {
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .card {
+    padding: 32px;
+  }
+
+  .message-window {
+    height: 58vh;
+  }
+
+  .message-scroll {
+    font-size: 18px;
+    line-height: 2.1;
+  }
+}
+
+/* ===== 小画面対策（全体縮小） ===== */
+@media (max-width: 360px) {
+  .card {
+    transform: scale(0.9);
+    transform-origin: center;
+  }
+
+  .message-window {
+    height: 42vh;
+  }
+}
+
+@media (max-width: 320px) {
+  .card {
+    transform: scale(0.85);
+  }
+
+  .message-window {
+    height: 38vh;
+  }
+}
